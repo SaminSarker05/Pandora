@@ -10,4 +10,4 @@ class FullAdder
     static std::pair<int, int> add(int a, int b, int carry_in);
 };
 
-#endif ADDER_H
+#endif
