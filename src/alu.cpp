@@ -13,6 +13,40 @@ enum opcode {
   XOR
 };
 
+class FullAdder 
+{
+public:
+  FullAdder() {};
+
+  std::pair<int, int> add(int a, int b, int carry_in=0) 
+  {
+    int sum = 0;
+    int carry = carry_in;
+    for (int i = 0; i < 64; ++i) {
+      int ith_a_bit = (a >> i) & 1;
+      int ith_b_bit = (b >> i) & 1;
+      auto result = addOneBit(ith_a_bit, ith_b_bit, carry);
+      sum |= (result.first << i);
+      carry = result.second;
+    }
+    return {sum, carry};
+  }
+
+  std::pair<int, int> subtract(int a, int b) {
+    // limitation: does not work if a < b; fix with comparator
+    int b_invert = ~b;
+    return add(a, b_invert, 1);
+  }
+  
+private:
+  std::pair<int, int> addOneBit(int a, int b, int carry_in)
+  {
+    int sum = (a ^ b) ^ carry_in;
+    int carry_out = (a & b) | (a & carry_in) | (b & carry_in);
+    return {sum, carry_out};
+  }
+};
+
 class ArithmeticLogicUnit
 {
 public:
@@ -21,49 +55,46 @@ public:
   // opcode = operation
   // operands
   ArithmeticLogicUnit() {}
-  void execute(int instruction, const std::vector<int>& operands) {
+
+  int execute(int instruction, const std::vector<int>& operands) 
+  {
     switch (instruction) {
-      case opcode::ADD:
-        std::cout << "add" << std::endl; break;
-      case opcode::SUB:
-        std::cout << "subtract" << std::endl; break;
+      case opcode::ADD: return add(operands);
+      case opcode::AND: return operands[0] & operands[1];
+      case opcode::OR: return operands[0] | operands[1];
+      case opcode::NOT: return ~operands[0];
+      case opcode::XOR: return operands[0] ^ operands[1];
+      case opcode::SUB: return subtract(operands);
       case opcode::LESS_THAN:
         std::cout << "compare < " << std::endl; break;
       case opcode::GREATER_THAN:
         std::cout << "compare > " << std::endl; break;
       case opcode::EQUAL_TO:
         std::cout << "=" << std::endl; break;
-      case opcode::AND:
-        std::cout << "and" << std::endl; break;
-      case opcode::OR:
-        std::cout << "or" << std::endl; break;
-      case opcode::NOT:
-        std::cout << "not" << std::endl; break;
-      case opcode::XOR:
-        std::cout << "xor" << std::endl; break;
     }
+    return 0;
   }
-  void add(std::vector<int>& operands) 
+
+  int add(const std::vector<int>& operands) 
   {
-
-
+    int num1 = operands[0];
+    int num2 = operands[1];
+    return summer.add(num1, num2).first;
   }
-  void subtract(std::vector<int>& operands) {
-    
-  }
-  // void less_than(std::vector<int>& operands) {}
-  // void greater_than(std::vector<int>& operands) {}
-  // void equal_to(std::vector<int>& operands) {}
-  // void and_(std::vector<int>& operands) {}
-  // void or_(std::vector<int>& operands) {}
-  // void not_(std::vector<int>& operands) {}
-  // void xor_(std::vector<int>& operands) {}
 
+  int subtract(const std::vector<int>& operands) 
+  {
+    int num1 = operands[0];
+    int num2 = operands[1];
+    return summer.subtract(num1, num2).first;
+  }
+private:
+  FullAdder summer;
 };
 
 int main()
 {
-  std::cout << "hello world" << std::endl;
+  std::cout << "hello world..." << std::endl;
   ArithmeticLogicUnit alu;
-  alu.execute(2, {1, 2});
+  std::cout << alu.execute(0, {1, 2}) << std::endl;
 }

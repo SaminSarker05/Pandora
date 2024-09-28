@@ -17,11 +17,13 @@ public:
     }
     return {sum, carry};
   }
+
   std::pair<int, int> subtract(int a, int b) {
     // limitation: does not work if a < b; fix with comparator
     int b_invert = ~b;
     return add(a, b_invert, 1);
   }
+  
 private:
   std::pair<int, int> addOneBit(int a, int b, int carry_in)
   {
