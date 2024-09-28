@@ -1,10 +1,5 @@
 #include <iostream>
 #include <utility>
-//  1
-// 0000
-// 0011
-// 0010
-// 0101
 
 class FullAdder 
 {
@@ -23,8 +18,9 @@ public:
     return {sum, carry};
   }
   std::pair<int, int> subtract(int a, int b) {
+    // limitation: does not work if a < b; fix with comparator
     int b_invert = ~b;
-    return add(a, b + 1, 1);
+    return add(a, b_invert, 1);
   }
 private:
   std::pair<int, int> addOneBit(int a, int b, int carry_in)
@@ -34,18 +30,3 @@ private:
     return {sum, carry_out};
   }
 };
-
-int main() 
-{
-  FullAdder adder;
-  std::cout << adder.add(10, 11).first << std::endl;
-  std::cout << adder.subtract(3, 2).first << std::endl;
-}
-
-// 0011
-// 0010
-
-// 00011 = 3
-// 11111 = -8 + 6 = -2
-// 100010 = 
-// -16 + 
