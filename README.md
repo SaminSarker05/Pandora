@@ -9,7 +9,7 @@ easy to implement since most computers have 32-bit systems and 4 byte allocation
 - fetch instructions from RAM, decode and send signals to ALU
 - directs ALU work
 
-[ALU]
+[ALU] DONE
 - logical operations (NOT, AND, XOR, OR, BIT SHIFT)
 - arithemtic operations
 - takes input from registers
@@ -17,7 +17,7 @@ easy to implement since most computers have 32-bit systems and 4 byte allocation
 [BUS]
 - enables communication between CPU, MEMORY, I/O
 
-[MEMORY]
+[MEMORY] Working...
 - primary or temporary data
 
 [project directory structure]
