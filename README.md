@@ -1,5 +1,6 @@
 # Pandora
 will create a 32 bit cpu
+easy to implement since most computers have 32-bit systems and 4 byte allocation for integers
 
 - implement ALU, registers, and Control Unit to emulate CPU
 - write instructions to do operations using CPU - generate FIbb numbers, bubble sort
