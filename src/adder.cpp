@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <cmath>
 
 class FullAdder 
 {
@@ -8,19 +9,22 @@ public:
   {
     int sum = 0;
     int carry = carry_in;
-    for (int i = 0; i < 64; ++i) {
+    for (int i = 0; i < 32; ++i) {
       int ith_a_bit = (a >> i) & 1;
       int ith_b_bit = (b >> i) & 1;
       auto result = addOneBit(ith_a_bit, ith_b_bit, carry);
-      sum |= (result.first << i);
+
+      // check if MSB is 1 and result is negative number
+      if (i == 63 and result.first == 1) sum = -pow(2, 31) + sum;
+      else sum |= (result.first << i);
       carry = result.second;
     }
     return {sum, carry};
   }
 
   std::pair<int, int> subtract(int a, int b) {
-    // limitation: does not work if a < b; fix with comparator
     int b_invert = ~b;
+    // std::cout << "inside function " << b << " " << (b_invert) << std::endl;
     return add(a, b_invert, 1);
   }
   
