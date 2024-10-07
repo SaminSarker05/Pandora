@@ -21,8 +21,18 @@ public:
 
 private:
   void decode(int instructions) {
+    // hexadecimals will represent the instructions for fib and binary search
+    int opcode = (instructions & 0xff000000) >> 24;
 
+    // extract the register indices and opcode and save into variables
+    int reg1 = (instructions & 0x00ff0000) >> 16;
+    int reg2 = (instructions & 0x0000ff00) >> 8;
+    int reg3 = (instructions & 0x000000ff);
 
+    std::vector<int> operands = {registers[reg1].get(), registers[reg2].get()};
+    int result = alu.execute(opcode, operands);
+    // save computation from alu into destination register
+    registers[reg3].set(result);
   }
   ArithmeticLogicUnit alu;
   std::vector<Register> registers;
