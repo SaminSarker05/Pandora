@@ -15,7 +15,10 @@ enum opcode {
   AND,
   OR,
   NOT,
-  XOR
+  XOR,
+  LOAD,
+  STORE,
+  JUMP,
 };
 
 class ArithmeticLogicUnit
