@@ -6,6 +6,7 @@
 #include <cmath>
 #include "adder.h"
 
+
 class Comparator
 {
 public:
@@ -13,6 +14,7 @@ public:
   int less_than(int a, int b);
   int greater_than(int a, int b);
   int equal_to(int a, int b);
+  
 private:
   FullAdder tool;
 };

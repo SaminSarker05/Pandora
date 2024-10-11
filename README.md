@@ -18,7 +18,7 @@ easy to implement since most computers have 32-bit systems and 4 byte allocation
 [BUS]
 - enables communication between CPU, MEMORY, Registers
 
-[MEMORY] Working...
+[MEMORY]
 - registers
 - memory; place for program instructions; similar to assembly code
 - primary or temporary data

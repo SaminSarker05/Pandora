@@ -6,6 +6,7 @@
 #include "adder.h"
 #include "comparator.h"
 
+
 enum opcode {
   ADD,
   SUB,
