@@ -1,3 +1,5 @@
+# used in testing; deprecated
+
 DEBUG = -c -std=c++17
 
 run: build
